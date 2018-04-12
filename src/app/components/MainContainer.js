@@ -11,8 +11,6 @@ class MainContainer extends React.Component {
 
     constructor (props) {
         super(props)
-        console.log(JSON.stringify(this.props))
-
     }
     
     render () {

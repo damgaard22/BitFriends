@@ -13,8 +13,8 @@ const divStyle = {
 const iconStyle = {
     marginLeft: '5%',
     marginRight: '5%',
-    width: '75px',
-    height: '75px'
+    width: '70px',
+    height: '70px'
 }
 
 const messageStyle = {
@@ -37,10 +37,9 @@ class TransactionForm extends Component {
 
     constructor (props) {
         super(props)
-        console.log(props)
     }
     
-    state = {amount: '', coin: 'btc', description: '', btc_color: 'orange', eth_color: 'orange'};
+    state = {amount: '', coin: 'btc', description: '', btc_color: 'orange', eth_color: 'black'};
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
@@ -49,16 +48,16 @@ class TransactionForm extends Component {
             this.setState({coin: 'btc', btc_color: 'orange', eth_color: 'grey'})
         }
         else {
-            this.setState({coin: 'eth', btc_color: 'grey', eth_color: 'orange'})
+            this.setState({coin: 'eth', btc_color: 'grey', eth_color: 'black'})
         }
     }
 
     handleFormSubmit = () => {
         const { amount, coin, description } = this.state
 
-        this.props.transactionCallback(coin, amount)
+        this.props.transactionCallback(coin, amount, description)
 
-        this.setState({amount: '', coin: '', description: '', btc_color: 'orange', eth_color: 'orange'})
+        this.setState({amount: '', coin: '', description: '', btc_color: 'orange', eth_color: 'black'})
     }
 
     render() {
@@ -69,7 +68,7 @@ class TransactionForm extends Component {
                 <Form.Input placeholder='Amount' name='amount' value={amount} onChange={this.handleChange} width={5} style={amountStyle}/>
                 <div style={divStyle}>
                     <Button size='huge' circular color={btc_color} icon='bitcoin' onClick={this.handleCoinChange} style={iconStyle} className='btc'/>
-                    <Button size='huge' circular color={eth_color} icon='bitcoin' onClick={this.handleCoinChange} style={iconStyle} className='eth'/>
+                    <Button size='huge' circular color={eth_color} icon='viacoin' onClick={this.handleCoinChange} style={iconStyle} className='eth'/>
                 </div>
                 <Form.Input placeholder='Transaction Message' name='description' value={description} onChange={this.handleChange} style={messageStyle} width={8}/>
                 <Form.Button basic onClick={this.handleFormSubmit} color='blue'style={sendButton}>Send</Form.Button>

@@ -18,20 +18,21 @@ class AddFriendButton extends React.Component {
 
     constructor (props) {
         super(props)
-        this.state = {name: '', description: '', address: ''}
+        this.state = {name: '', description: '', address: '', modalOpen: false}
     }
 
-    handleAddFriendClick(props) {
-       props.handler('Test', 'Test')
-    }
+    handleOpen = () => this.setState({ modalOpen: true })
+
+    handleClose = () => this.setState({ modalOpen: false })
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
     handleFormSubmit = () => {
-        const {name, description} = this.state
+        const {name, description, address} = this.state
 
-        this.props.handler(name, description)
+        this.props.handler(name, description, address)
         this.setState({name: '', description: '', address: ''})
+        this.handleClose()
     }
 
     render() {
@@ -40,8 +41,11 @@ class AddFriendButton extends React.Component {
 
         return(
             <Modal trigger ={
-                <Button icon='plus' inverted circular size='huge' color='green' style={buttonStyle} />
-            }>
+                <Button icon='plus' inverted circular size='huge' color='green' style={buttonStyle} onClick = {this.handleOpen} />
+            }
+            open = {this.state.modalOpen}
+            onClose = {this.handleClose}
+            >
                 <Modal.Header>Add a friend</Modal.Header>
                 <Modal.Content image>
                     <Image circular centered wrapped size='small' src="https://react.semantic-ui.com/assets/images/avatar/large/rachel.png" />
